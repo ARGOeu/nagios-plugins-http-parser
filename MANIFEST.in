@@ -1,0 +1,3 @@
+include nagios_plugins_http_parser/*
+include plugins/*
+include nagios-plugins-http-parser.spec
