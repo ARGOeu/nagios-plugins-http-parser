@@ -24,7 +24,7 @@ pipeline {
                         echo 'Building Rpm...'
                         sh '''
                             cd ${WORKSPACE}/$PROJECT_DIR
-                            coverage run -m unittest2 discover -v
+                            scl enable rh-python36 'coverage run -m unittest2 discover -v'
                         '''
                         cobertura coberturaReportFile: '**/coverage.xml'
                     }
