@@ -23,7 +23,6 @@ pipeline {
                     steps {
                         echo 'Building Rpm...'
                         sh '''
-                            python3 discover
                             pip3 install requests
                             cd ${WORKSPACE}/$PROJECT_DIR
                             python3 -m unittest discover -v
