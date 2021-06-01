@@ -11,6 +11,26 @@ pipeline {
 
     }
     stages {
+        stage ('Test'){
+            parallel {
+                stage ('Test Centos 7') {
+                    agent {
+                        docker {
+                            image 'argo.registry:5000/epel-7-ams'
+                            args '-u jenkins:jenkins'
+                        }
+                    }
+                    steps {
+                        echo 'Building Rpm...'
+                        sh '''
+                            cd ${WORKSPACE}/$PROJECT_DIR
+                            coverage run -m unittest2 discover -v
+                        '''
+                        cobertura coberturaReportFile: '**/coverage.xml'
+                    }
+                }
+            }
+        }
         stage ('Build'){
             parallel {
                 stage ('Build Centos 7') {
