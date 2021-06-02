@@ -23,10 +23,10 @@ pipeline {
                     steps {
                         echo 'Building Rpm...'
                         sh '''
-                            pip3 install requests
                             cd ${WORKSPACE}/$PROJECT_DIR
-                            python3 -m unittest discover -v
+                            coverage3 run -m unittest discover -v
                         '''
+                        cobertura coberturaReportFile: '**/coverage.xml'
                     }
                 }
             }
