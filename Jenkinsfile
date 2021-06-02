@@ -25,6 +25,7 @@ pipeline {
                         sh '''
                             cd ${WORKSPACE}/$PROJECT_DIR
                             coverage3 run -m unittest discover -v
+                            coverage3 xml --omit='*usr*'
                         '''
                         cobertura coberturaReportFile: '**/coverage.xml'
                     }
