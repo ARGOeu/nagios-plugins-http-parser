@@ -11,7 +11,8 @@ usage: check_http_parser -H HOSTNAME -t TIMEOUT [-h] [-p PORT] [-u URI]
                          [--warning-search WARNING_SEARCH]
                          [--critical-search CRITICAL_SEARCH]
                          [--ok-message OK_MSG] [--warning-message WARNING_MSG]
-                         [--critical-message CRITICAL_MSG] [--ssl]
+                         [--critical-message CRITICAL_MSG]
+                         [--unknown-message UNKNOWN_MSG] [--ssl]
 
 Nagios plugin that parses http response for given three versions of text that,
 if found, will return OK, WARNING or CRITICAL status.
@@ -35,14 +36,17 @@ optional arguments:
   --critical-search CRITICAL_SEARCH
                         Text to be searched in the http response which, if
                         found, will return status CRITICAL (default: critical)
-  --ok-message OK_MSG   Status message to return in case of status OK
-                        (default: "")
+  --ok-message OK_MSG   Status message to return if ok string is found in the
+                        response (default: "")
   --warning-message WARNING_MSG
-                        Status message to return in case of status WARNING
-                        (default: "")
+                        Status message to return if warning string is found in
+                        the response (default: "")
   --critical-message CRITICAL_MSG
-                        Status message to return in case of status CRITICAL
-                        (default: "")
+                        Status message to return if critical string is found
+                        in the response (default: "")
+  --unknown-message UNKNOWN_MSG
+                        Status message to return in case if none of the
+                        defined strings is found in the response.
   --ssl                 Connect using SSL.
 ```
 

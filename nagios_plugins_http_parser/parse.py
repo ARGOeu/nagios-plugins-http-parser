@@ -35,7 +35,7 @@ class HttpParse:
 
     def parse(
             self, ok_search, warn_search, crit_search, ok_msg, warn_msg,
-            crit_msg, timeout
+            crit_msg, unknown_msg, timeout
     ):
         url = self._build_url()
 
@@ -52,9 +52,7 @@ class HttpParse:
                 self.nagios.set_critical(crit_msg)
 
             else:
-                self.nagios.set_unknown(
-                    'None of the sample texts found in response.'
-                )
+                self.nagios.set_unknown(unknown_msg)
 
         except (
                 requests.exceptions.HTTPError,
