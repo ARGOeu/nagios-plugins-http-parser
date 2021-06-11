@@ -27,6 +27,18 @@ def mock_response_critical(*args, **kwargs):
     return MockResponse('CRITICAL')
 
 
+def mock_response_mixed_warning(*args, **kwargs):
+    return MockResponse('WARNING: item1,item2,item3\nOK:item4,item5')
+
+
+def mock_response_mixed_critical(*args, **kwargs):
+    return MockResponse('CRITICAL: item1,item2,item3\nOK:item4,item5')
+
+
+def mock_response_mixed_warning_and_critical(*args, **kwargs):
+    return MockResponse('WARNING: item1,item2\nCRITICAL:item3, item4\nOK:item5')
+
+
 def mock_response_strange(*args, **kwargs):
     return MockResponse('Some strange text.')
 
@@ -118,6 +130,144 @@ class HttpParseTests(unittest.TestCase):
             'http://hostname.com:80/api/test.php', timeout=20
         )
         mock_print.assert_called_with('CRITICAL - Nothing is ok.')
+        mock_sys.assert_called_with(2)
+
+    @mock.patch('nagios_plugins_http_parser.parse.sys.exit')
+    @mock.patch('nagios_plugins_http_parser.parse.print')
+    @mock.patch('nagios_plugins_http_parser.parse.requests.get')
+    def test_parse_mixed_critical(self, mock_get, mock_print, mock_sys):
+        mock_get.side_effect = mock_response_mixed_critical
+        mock_print.side_effect = mock_function
+        mock_sys.side_effect = mock_function
+        parse = HttpParse(
+            hostname='hostname.com', port=80, uri='/api/test.php'
+        )
+        parse.parse(
+            ok_search='ok', warn_search='warning', crit_search='critical',
+            ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
+            crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
+            timeout=20
+        )
+        mock_get.assert_called_with(
+            'http://hostname.com:80/api/test.php', timeout=20
+        )
+        mock_print.assert_called_with('CRITICAL - Nothing is ok.')
+        mock_sys.assert_called_with(2)
+
+    @mock.patch('nagios_plugins_http_parser.parse.sys.exit')
+    @mock.patch('nagios_plugins_http_parser.parse.print')
+    @mock.patch('nagios_plugins_http_parser.parse.requests.get')
+    def test_parse_mixed_critical_without_message(
+            self, mock_get, mock_print, mock_sys
+    ):
+        mock_get.side_effect = mock_response_mixed_critical
+        mock_print.side_effect = mock_function
+        mock_sys.side_effect = mock_function
+        parse = HttpParse(
+            hostname='hostname.com', port=80, uri='/api/test.php'
+        )
+        parse.parse(
+            ok_search='ok', warn_search='warning', crit_search='critical',
+            ok_msg='', warn_msg='', crit_msg='', unknown_msg='', timeout=20
+        )
+        mock_get.assert_called_with(
+            'http://hostname.com:80/api/test.php', timeout=20
+        )
+        mock_print.assert_called_with(
+            'CRITICAL - CRITICAL: item1,item2,item3\nOK:item4,item5'
+        )
+        mock_sys.assert_called_with(2)
+
+    @mock.patch('nagios_plugins_http_parser.parse.sys.exit')
+    @mock.patch('nagios_plugins_http_parser.parse.print')
+    @mock.patch('nagios_plugins_http_parser.parse.requests.get')
+    def test_parse_mixed_warning(self, mock_get, mock_print, mock_sys):
+        mock_get.side_effect = mock_response_mixed_warning
+        mock_print.side_effect = mock_function
+        mock_sys.side_effect = mock_function
+        parse = HttpParse(
+            hostname='hostname.com', port=80, uri='/api/test.php'
+        )
+        parse.parse(
+            ok_search='ok', warn_search='warning', crit_search='critical',
+            ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
+            crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
+            timeout=20
+        )
+        mock_get.assert_called_with(
+            'http://hostname.com:80/api/test.php', timeout=20
+        )
+        mock_print.assert_called_with('WARNING - Not everything is ok.')
+        mock_sys.assert_called_with(1)
+
+    @mock.patch('nagios_plugins_http_parser.parse.sys.exit')
+    @mock.patch('nagios_plugins_http_parser.parse.print')
+    @mock.patch('nagios_plugins_http_parser.parse.requests.get')
+    def test_parse_mixed_warning_without_message(
+            self, mock_get, mock_print, mock_sys
+    ):
+        mock_get.side_effect = mock_response_mixed_warning
+        mock_print.side_effect = mock_function
+        mock_sys.side_effect = mock_function
+        parse = HttpParse(
+            hostname='hostname.com', port=80, uri='/api/test.php'
+        )
+        parse.parse(
+            ok_search='ok', warn_search='warning', crit_search='critical',
+            ok_msg='', warn_msg='', crit_msg='', unknown_msg='', timeout=20
+        )
+        mock_get.assert_called_with(
+            'http://hostname.com:80/api/test.php', timeout=20
+        )
+        mock_print.assert_called_with(
+            'WARNING - WARNING: item1,item2,item3\nOK:item4,item5'
+        )
+        mock_sys.assert_called_with(1)
+
+    @mock.patch('nagios_plugins_http_parser.parse.sys.exit')
+    @mock.patch('nagios_plugins_http_parser.parse.print')
+    @mock.patch('nagios_plugins_http_parser.parse.requests.get')
+    def test_parse_mixed_warning_and_crit(self, mock_get, mock_print, mock_sys):
+        mock_get.side_effect = mock_response_mixed_warning_and_critical
+        mock_print.side_effect = mock_function
+        mock_sys.side_effect = mock_function
+        parse = HttpParse(
+            hostname='hostname.com', port=80, uri='/api/test.php'
+        )
+        parse.parse(
+            ok_search='ok', warn_search='warning', crit_search='critical',
+            ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
+            crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
+            timeout=20
+        )
+        mock_get.assert_called_with(
+            'http://hostname.com:80/api/test.php', timeout=20
+        )
+        mock_print.assert_called_with('CRITICAL - Nothing is ok.')
+        mock_sys.assert_called_with(2)
+
+    @mock.patch('nagios_plugins_http_parser.parse.sys.exit')
+    @mock.patch('nagios_plugins_http_parser.parse.print')
+    @mock.patch('nagios_plugins_http_parser.parse.requests.get')
+    def test_parse_mixed_warning_and_critical_without_message(
+            self, mock_get, mock_print, mock_sys
+    ):
+        mock_get.side_effect = mock_response_mixed_warning_and_critical
+        mock_print.side_effect = mock_function
+        mock_sys.side_effect = mock_function
+        parse = HttpParse(
+            hostname='hostname.com', port=80, uri='/api/test.php'
+        )
+        parse.parse(
+            ok_search='ok', warn_search='warning', crit_search='critical',
+            ok_msg='', warn_msg='', crit_msg='', unknown_msg='', timeout=20
+        )
+        mock_get.assert_called_with(
+            'http://hostname.com:80/api/test.php', timeout=20
+        )
+        mock_print.assert_called_with(
+            'CRITICAL - WARNING: item1,item2\nCRITICAL:item3, item4\nOK:item5'
+        )
         mock_sys.assert_called_with(2)
 
     @mock.patch('nagios_plugins_http_parser.parse.sys.exit')
