@@ -42,14 +42,24 @@ class HttpParse:
         try:
             response = requests.get(url, timeout=timeout)
 
-            if ok_search.lower() in response.text.lower():
-                self.nagios.set_ok(ok_msg)
+            if crit_search.lower() in response.text.lower():
+                if crit_msg:
+                    msg = crit_msg
+                else:
+                    msg = response.text
+                self.nagios.set_critical(msg)
 
             elif warn_search.lower() in response.text.lower():
-                self.nagios.set_warning(warn_msg)
+                if warn_msg:
+                    msg = warn_msg
 
-            elif crit_search.lower() in response.text.lower():
-                self.nagios.set_critical(crit_msg)
+                else:
+                    msg = response.text
+
+                self.nagios.set_warning(msg)
+
+            elif ok_search.lower() in response.text.lower():
+                self.nagios.set_ok(ok_msg)
 
             else:
                 self.nagios.set_unknown(unknown_msg)
