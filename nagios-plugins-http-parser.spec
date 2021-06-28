@@ -42,5 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Mon May 21 2021 Katarina Zailac <kzailac@srce.hr> - 0.1.0-1%{?dist}
+* Mon Jun 28 2021 Katarina Zailac <kzailac@srce.hr> - 0.1.0-1%{?dist}
+- ARGO-3175 Change default returned messages for nagios-plugins-http-parser
+- ARGO-3173 Add custom message for unknown status for nagios-plugins-http-parser probe
 - ARGO-3149 Create probe that parses http response
