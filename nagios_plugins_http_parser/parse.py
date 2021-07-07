@@ -35,21 +35,28 @@ class HttpParse:
 
     def parse(
             self, ok_search, warn_search, crit_search, ok_msg, warn_msg,
-            crit_msg, unknown_msg, timeout
+            crit_msg, unknown_msg, timeout, case_sensitive
     ):
         url = self._build_url()
 
         try:
             response = requests.get(url, timeout=timeout)
+            response_text = response.text
 
-            if crit_search.lower() in response.text.lower():
+            if not case_sensitive:
+                crit_search = crit_search.lower()
+                warn_search = warn_search.lower()
+                ok_search = ok_search.lower()
+                response_text = response_text.lower() 
+
+            if crit_search in response_text:
                 if crit_msg:
                     msg = crit_msg
                 else:
                     msg = response.text
                 self.nagios.set_critical(msg)
 
-            elif warn_search.lower() in response.text.lower():
+            elif warn_search in response_text:
                 if warn_msg:
                     msg = warn_msg
 
@@ -58,7 +65,7 @@ class HttpParse:
 
                 self.nagios.set_warning(msg)
 
-            elif ok_search.lower() in response.text.lower():
+            elif ok_search in response_text:
                 self.nagios.set_ok(ok_msg)
 
             else:
