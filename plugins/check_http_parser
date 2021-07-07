@@ -72,6 +72,11 @@ def main():
     optional.add_argument(
         '--ssl', dest='ssl', action='store_true', help='Connect using SSL.'
     )
+    optional.add_argument(
+        '--case-sensitive', dest='case_sensitive', action='store_true', 
+        help='Parse text as case sensitive. (default: false)'
+    )
+
     args = parser.parse_args()
 
     http_parser = HttpParse(
@@ -85,7 +90,8 @@ def main():
         warn_msg=args.warning_msg,
         crit_msg=args.critical_msg,
         unknown_msg=args.unknown_msg,
-        timeout=args.timeout
+        timeout=args.timeout,
+        case_sensitive=args.case_sensitive
     )
 
 
