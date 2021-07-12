@@ -2,7 +2,7 @@
 
 Summary:       Nagios plugin that parses http response.
 Name:          nagios-plugins-http-parser
-Version:       0.1.0
+Version:       0.2.0
 Release:       1%{?dist}
 Source0:       %{name}-%{version}.tar.gz
 License:       ASL 2.0
@@ -42,6 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 12 2021 Emir Imamagic <eimamagi@srce.hr> - 0.2.0-1
+- ARGO-3216 Add parameter --case-sensitive
 * Mon Jun 28 2021 Katarina Zailac <kzailac@srce.hr> - 0.1.0-1%{?dist}
 - ARGO-3175 Change default returned messages for nagios-plugins-http-parser
 - ARGO-3173 Add custom message for unknown status for nagios-plugins-http-parser probe
