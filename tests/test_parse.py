@@ -58,7 +58,7 @@ class HttpParseTests(unittest.TestCase):
             ok_search='ok', warn_search='warning', crit_search='critical',
             ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
             crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
-            timeout=20
+            timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
@@ -80,7 +80,7 @@ class HttpParseTests(unittest.TestCase):
             ok_search='ok', warn_search='warning', crit_search='critical',
             ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
             crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
-            timeout=20
+            timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'https://hostname.com:80/api/test.php', timeout=20
@@ -102,7 +102,7 @@ class HttpParseTests(unittest.TestCase):
             ok_search='ok', warn_search='warning', crit_search='critical',
             ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
             crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
-            timeout=20
+            timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
@@ -124,7 +124,7 @@ class HttpParseTests(unittest.TestCase):
             ok_search='ok', warn_search='warning', crit_search='critical',
             ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
             crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
-            timeout=20
+            timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
@@ -146,7 +146,7 @@ class HttpParseTests(unittest.TestCase):
             ok_search='ok', warn_search='warning', crit_search='critical',
             ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
             crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
-            timeout=20
+            timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
@@ -168,7 +168,7 @@ class HttpParseTests(unittest.TestCase):
         )
         parse.parse(
             ok_search='ok', warn_search='warning', crit_search='critical',
-            ok_msg='', warn_msg='', crit_msg='', unknown_msg='', timeout=20
+            ok_msg='', warn_msg='', crit_msg='', unknown_msg='', timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
@@ -192,7 +192,7 @@ class HttpParseTests(unittest.TestCase):
             ok_search='ok', warn_search='warning', crit_search='critical',
             ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
             crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
-            timeout=20
+            timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
@@ -214,7 +214,7 @@ class HttpParseTests(unittest.TestCase):
         )
         parse.parse(
             ok_search='ok', warn_search='warning', crit_search='critical',
-            ok_msg='', warn_msg='', crit_msg='', unknown_msg='', timeout=20
+            ok_msg='', warn_msg='', crit_msg='', unknown_msg='', timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
@@ -238,7 +238,7 @@ class HttpParseTests(unittest.TestCase):
             ok_search='ok', warn_search='warning', crit_search='critical',
             ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
             crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
-            timeout=20
+            timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
@@ -260,7 +260,7 @@ class HttpParseTests(unittest.TestCase):
         )
         parse.parse(
             ok_search='ok', warn_search='warning', crit_search='critical',
-            ok_msg='', warn_msg='', crit_msg='', unknown_msg='', timeout=20
+            ok_msg='', warn_msg='', crit_msg='', unknown_msg='', timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
@@ -284,7 +284,7 @@ class HttpParseTests(unittest.TestCase):
             ok_search='ok', warn_search='warning', crit_search='critical',
             ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
             crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
-            timeout=20
+            timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
@@ -306,7 +306,7 @@ class HttpParseTests(unittest.TestCase):
             ok_search='ok', warn_search='warning', crit_search='critical',
             ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
             crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
-            timeout=20
+            timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
@@ -328,7 +328,7 @@ class HttpParseTests(unittest.TestCase):
             ok_search='ok', warn_search='warning', crit_search='critical',
             ok_msg='Everything is ok.', warn_msg='Not everything is ok.',
             crit_msg='Nothing is ok.', unknown_msg='Something unknown.',
-            timeout=20
+            timeout=20, case_sensitive=False
         )
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
